@@ -1,3 +1,3 @@
 fn main() {
-    roan::main();
+    roan_minimum::main();
 }

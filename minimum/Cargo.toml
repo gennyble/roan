@@ -1,5 +1,5 @@
 [package]
-name = "roan"
+name = "roan_minimum"
 version = "0.1.0"
 authors = ["Brad Alfirevic <brad@genbyte.dev>"]
 edition = "2018"
