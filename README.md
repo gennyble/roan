@@ -1,8 +1,9 @@
 # roan
 an example of using Rust on Android *and also* your Desktop.
 
-Feel free to open a PR if you notice any words spelled poorly, my spellcheck
-refuses to function.
+~~Feel free to open a PR if you notice any words spelled poorly, my spellcheck refuses to function.~~
+My spellcheck is working now but you can still open a PR if you think you
+can make this repo any better :D
 
 ## Setting up
 
@@ -51,7 +52,7 @@ home key crates for the Rust on Android experience.
 *read that [here][andk-hello]*
 
 [andk-hello]: https://github.com/rust-windowing/android-ndk-rs#hello-world
-
+https://github.com/gennyble/roan
 From my understanding, the code you write in Rust sits behind a
 `NativeActivity`, so your code is called as a library *from* that activity. The
 `ndk-glue` crate manages this for us, but we have to do some work to get it there.
