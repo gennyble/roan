@@ -76,6 +76,9 @@ fn main() {
 }
 ```
 
+If you want to see this all in action, there's a Minimum Viable Android example in
+the `minimum` directory.
+
 ### It's all prepared now?
 
 It's all prepared now! Mostly. Be sure to locate your SDK and NDK, mine are at
