@@ -92,7 +92,13 @@ You can now execute `cargo apk run` and the program will be compiled, uploaded t
 your phone, and automatically ran.
 
 But how can you know it ran? Check the logs! Run the command below to retreive them.
-You should see "Hello, Android!" somewhere, if you run the code in this repository.
 ```bash
 adb logcat RustStdoutStderr:D "*:S"
 ```
+
+Within this repo, at the path `minimum`, is an example of everything I just described.
+You can test that you're ready to start Rusting on Android if you go into that directory
+and do run the code. Check the logs and you should get "Hello, Android!" as previously
+mentioned.
+
+Good luck :D
