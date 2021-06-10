@@ -1,6 +1,9 @@
 # roan
 an example of using Rust on Android *and also* your Desktop.
 
+Feel free to open a PR if you notice any words spelled poorly, my spellcheck
+refuses to function.
+
 ## Setting up
 
 ### Grabbing the SDK/NDK
@@ -75,6 +78,9 @@ fn main() {
 
 ### It's all prepared now?
 
+It's all prepared now! Mostly. Be sure to locate your SDK and NDK, mine are at
+`/opt/android-sdk` and `/opt/android-ndk`, respectivly.
+
 It's all prepared now! I've left a script in here, `run.sh`, that runs
 `cargo apk run` with *my* enviornmental varibles. You can edit it to work with
 the location of your SDK and NDK, or you can actually set those in your shell, 
@@ -83,4 +89,6 @@ device, provided you plugged it in, and upload+run the compiled APK once it's
 done. Don't forget to say that yes, you should in fact allow your computer to
 debug over USB. If it installs and runs just fine, you can run the command below
 to get the logs from the device. You *should* see "Hello, Android!".
-`adb logcat RustStdoutStderr:D "*:S"`
+```bash
+adb logcat RustStdoutStderr:D "*:S"
+```
