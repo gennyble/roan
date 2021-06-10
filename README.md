@@ -79,16 +79,20 @@ fn main() {
 ### It's all prepared now?
 
 It's all prepared now! Mostly. Be sure to locate your SDK and NDK, mine are at
-`/opt/android-sdk` and `/opt/android-ndk`, respectivly.
+`/opt/android-sdk` and `/opt/android-ndk`, respectively.
+Set the `ANDROID_SDK_ROOT` and `ANDROID_NDK_ROOT` environmental variables to the
+paths of your sdk/ndk so that cargo-apk can find them.
 
-It's all prepared now! I've left a script in here, `run.sh`, that runs
-`cargo apk run` with *my* enviornmental varibles. You can edit it to work with
-the location of your SDK and NDK, or you can actually set those in your shell, 
-or whatever. My point is, run `cargo apk run` now! It *should* find your Android
-device, provided you plugged it in, and upload+run the compiled APK once it's
-done. Don't forget to say that yes, you should in fact allow your computer to
-debug over USB. If it installs and runs just fine, you can run the command below
-to get the logs from the device. You *should* see "Hello, Android!".
+Plug your phone in to your computer, using a cable that has a data connection (i've
+used power-only cables too many times), and be sure it's there by running
+`adb devices`. You should see one device listed. Be sure to accept the debug via USB
+prompt, if it asks (it probably will).
+
+You can now execute `cargo apk run` and the program will be compiled, uploaded to
+your phone, and automatically ran.
+
+But how can you know it ran? Check the logs! Run the command below to retreive them.
+You should see "Hello, Android!" somewhere, if you run the code in this repository.
 ```bash
 adb logcat RustStdoutStderr:D "*:S"
 ```
