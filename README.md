@@ -15,8 +15,8 @@ you can grab everything you need from the AUR by installing these packages
 `android-platform android-ndk android-sdk-build-tools`
 
 - `android-platform` installs the SDK itself and a bunch of helpful tools.
-- `android-ndk` is the Native Development Kit used for natvie code which, since
-  we're writing Rust, is kind of neccessary :D
+- `android-ndk` is the Native Development Kit used for native code which, since
+  we're writing Rust, is kind of necessary :D
 
 ### Get the correct targets
 
@@ -86,7 +86,7 @@ It's all prepared now! Mostly. Be sure to locate your SDK and NDK, mine are at
 Set the `ANDROID_SDK_ROOT` and `ANDROID_NDK_ROOT` environmental variables to the
 paths of your sdk/ndk so that cargo-apk can find them.
 
-Plug your phone in to your computer, using a cable that has a data connection (i've
+Plug your phone in to your computer, using a cable that has a data connection (I've
 used power-only cables too many times), and be sure it's there by running
 `adb devices`. You should see one device listed. Be sure to accept the debug via USB
 prompt, if it asks (it probably will).
@@ -94,7 +94,7 @@ prompt, if it asks (it probably will).
 You can now execute `cargo apk run` and the program will be compiled, uploaded to
 your phone, and automatically ran.
 
-But how can you know it ran? Check the logs! Run the command below to retreive them.
+But how can you know it ran? Check the logs! Run the command below to retrieve them.
 ```bash
 adb logcat RustStdoutStderr:D "*:S"
 ```
@@ -102,6 +102,6 @@ adb logcat RustStdoutStderr:D "*:S"
 Within this repo, at the path `minimum`, is an example of everything I just described.
 You can test that you're ready to start Rusting on Android if you go into that directory
 and do run the code. Check the logs and you should get "Hello, Android!" as previously
-mentioned.
+mentioned. 
 
 Good luck :D
