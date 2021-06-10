@@ -1,0 +1,15 @@
+[package]
+name = "glandroid"
+version = "0.1.0"
+authors = ["Brad Alfirevic <brad@genbyte.dev>"]
+edition = "2018"
+
+[lib]
+crate-type = ["lib", "cdylib"]
+
+[target.'cfg(target_os = "android")'.dependencies]
+ndk-glue = "0.2.1"
+
+[dependencies]
+glow = "0.10.0"
+glutin = { git = "https://github.com/boundlessgames/glutin" }
