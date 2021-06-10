@@ -8,6 +8,8 @@ only take advantage of the first two with this example.
 [glow-gh]: https://github.com/grovesNL/glow
 [glow-crates]: https://crates.io/crates/glow
 
+***currently not compiling on Android!***
+
 ## A quick note on glutin/winit
 
 I originally learned how to OpenGL with Rust on Android by inspecting a repository
