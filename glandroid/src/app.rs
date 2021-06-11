@@ -1,3 +1,6 @@
+// Much of this files code is taken from the glow hello example, linked below
+// https://github.com/grovesNL/glow/tree/main/examples/hello
+// Comments are mostly for myself, but you might find them useful, too.
 use glow::{Buffer, HasContext, Program, VertexArray};
 use glutin::{
 	dpi::PhysicalSize,
@@ -10,6 +13,7 @@ use glutin::{
 #[cfg(target_os = "linux")]
 use glutin::platform::unix::WindowBuilderExtUnix;
 
+// We have to keep track of two things now, so shove them into a struct.
 struct Triangle {
 	vao: VertexArray,
 	vbo: Buffer,
@@ -33,13 +37,24 @@ impl Triangle {
 		// Bind the Vertex Array so GL knows to associate it and the buffer
 		gl.bind_vertex_array(Some(vao));
 
+		// Create a buffer, tell OpenGL it's for an array, and store some data in it.
 		let vbo = gl.create_buffer().expect("Failed to create vbo");
 		gl.bind_buffer(glow::ARRAY_BUFFER, Some(vbo));
 		gl.buffer_data_u8_slice(glow::ARRAY_BUFFER, &vertices_u8, glow::STATIC_DRAW);
 
+		// Our shaders has two layouts, one with two floats (vec2) for a vertex
+		// and another for color (three floats; vec3).
+
+		// The first layout (vertex location) is "(location = 0)", is 2 data_types
+		// (glow::FLOAT) long and is not normalized. You can find the next vertex
+		// locatation in 20 bytes (NOT data_types).
 		gl.vertex_attrib_pointer_f32(0, 2, glow::FLOAT, false, 20, 0);
 		gl.enable_vertex_attrib_array(0);
 
+		// The same as above, but for color. now we're 3 glow::FLOATs long, same
+		// stride, and we can be find 2 floats into the data. Notice that the last
+		// argument, the offset, is 8. An f32 is 4 bytes long and there are two of
+		// them before our color. Harcoding is NOT good!
 		gl.vertex_attrib_pointer_f32(1, 3, glow::FLOAT, false, 20, 8);
 		gl.enable_vertex_attrib_array(1);
 
@@ -62,6 +77,7 @@ impl Triangle {
 	}
 }
 
+// These two things are linked by nature. They exist together.
 struct GlWindow {
 	window: ContextWrapper<PossiblyCurrent, Window>,
 	gl: glow::Context,
@@ -116,15 +132,22 @@ impl GlWindow {
 	}
 }
 
+// A struct to hold OpenGL resources. These, because of the way OpenGl is
+// handled on Android, can't persist for the lifetime of the program. Putting
+// them in this struct makes them easier to manage in an Option
 struct GlObjects {
 	program: Program,
 	triangle: Triangle,
 }
 
+// Our main application struct
 struct App {
 	title: String,
 	running: bool,
 	paused: bool,
+
+	// Neither of these can be assumed to exist at all times because of the
+	// way Android handles the OpenGL context. They have to be Options.
 	glwindow: Option<GlWindow>,
 	objects: Option<GlObjects>,
 }
@@ -141,11 +164,12 @@ impl App {
 	}
 
 	pub fn run(&mut self) {
-		dbg!("Running!");
 		self.running = true;
 
 		let mut el = EventLoop::new();
 
+		// If we're not Android, we can create our window and init OpenGL now.
+		// The window on Android is created when we receive Event::Resumed
 		#[cfg(not(target_os = "android"))]
 		{
 			self.create_window(&el);
@@ -169,7 +193,6 @@ impl App {
 	) {
 		match event {
 			Event::Resumed => {
-				dbg!("received Event::Resumed");
 				self.paused = false;
 
 				#[cfg(target_os = "android")]
@@ -179,7 +202,6 @@ impl App {
 				}
 			}
 			Event::Suspended => {
-				dbg!("received Event::Suspended");
 				self.paused = true;
 
 				#[cfg(target_os = "android")]
@@ -306,10 +328,6 @@ impl App {
 		program
 	}
 }
-
-// Much of this code is taken from the glow hello example, linked below
-// https://github.com/grovesNL/glow/tree/main/examples/hello
-// Comments are mostly for myself, but you might find them useful, too.
 
 pub fn run() {
 	let mut app = App::new("GlAndroid".into());
