@@ -1,5 +1,6 @@
 use glow::{Buffer, HasContext, Program, VertexArray};
 use glutin::{
+    dpi::PhysicalSize,
     event::{Event, WindowEvent},
     event_loop::{ControlFlow, EventLoop},
     window::WindowBuilder,
@@ -16,11 +17,17 @@ struct Triangle {
 
 impl Triangle {
     pub unsafe fn new(gl: &glow::Context) -> Self {
-        // Vertex data in float form.
-        let verticies: [f32; 9] = [-0.5, -0.5, 0.0, 0.5, -0.5, 0.0, 0.0, 0.5, 0.0];
+        // Vertex data in float form. Don't let rustfmt reformat
+        #[rustfmt::skip]
+        let verticies: [f32; 15] = [
+			-0.5, -0.5, 1.0, 0.0, 0.0,
+			0.5, -0.5,  0.0, 1.0, 0.0,
+			0.0, 0.5,   0.0, 0.0, 1.0
+		];
+
         // Do a weird transmute to get it into a state that buffer_data_u8_slice
         // will accept. I want buffer_data_f32_slice :(
-        let vertices_u8: [u8; 36] = std::mem::transmute(verticies);
+        let vertices_u8: [u8; 60] = std::mem::transmute(verticies);
 
         let vao = gl.create_vertex_array().expect("Failed to create vao");
         // Bind the Vertex Array so GL knows to associate it and the buffer
@@ -30,8 +37,10 @@ impl Triangle {
         gl.bind_buffer(glow::ARRAY_BUFFER, Some(vbo));
         gl.buffer_data_u8_slice(glow::ARRAY_BUFFER, &vertices_u8, glow::STATIC_DRAW);
 
-        gl.vertex_attrib_pointer_f32(0, 3, glow::FLOAT, false, 12, 0);
+        gl.vertex_attrib_pointer_f32(0, 2, glow::FLOAT, false, 20, 0);
+        gl.vertex_attrib_pointer_f32(1, 3, glow::FLOAT, false, 20, 8);
         gl.enable_vertex_attrib_array(0);
+        gl.enable_vertex_attrib_array(1);
 
         gl.bind_buffer(glow::ARRAY_BUFFER, None); //unbind vbo
         gl.bind_vertex_array(None); //unbind vao
@@ -102,7 +111,8 @@ pub fn run() {
         // Create vertex buffer/array
         let triangle = Triangle::new(&gl);
 
-        gl.clear_color(0.1, 0.5, 0.3, 1.0);
+        //gl.clear_color(0.1, 0.5, 0.3, 1.0);
+        gl.clear_color(0.0, 0.0, 0.0, 1.0);
 
         (gl, program, triangle)
     };
