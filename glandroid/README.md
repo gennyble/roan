@@ -1,4 +1,4 @@
-# glandrooid
+# glandroid
 
 This project demonstrates using OpenGL on Android via the `glow` crate
 ([github][glow-gh], [crates.io][glow-crates]), which is
