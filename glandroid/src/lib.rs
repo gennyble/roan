@@ -3,5 +3,5 @@ mod app;
 
 #[ndk_glue::main()]
 pub fn main() {
-    app::run();
+	app::run();
 }
