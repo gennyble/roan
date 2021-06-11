@@ -8,7 +8,7 @@ only take advantage of the first two with this example.
 [glow-gh]: https://github.com/grovesNL/glow
 [glow-crates]: https://crates.io/crates/glow
 
-***currently not compiling on Android!***
+***Will compile and run on Android and Linux, but the code is messy and bad! It needs a refactor.***
 
 ## A quick note on glutin/winit
 
